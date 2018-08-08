@@ -104,6 +104,8 @@ if [ "$1" = 'postgres' ]; then
 		fi
 		"${psql[@]}" --username postgres <<-EOSQL
 			$op USER "$POSTGRES_USER" WITH SUPERUSER $pass ;
+			CREATE ROLE rds_superuser;
+			GRANT rds_superuser to "$POSTGRES_USER"
 		EOSQL
 		echo
 		
